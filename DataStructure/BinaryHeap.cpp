@@ -26,9 +26,6 @@ public:
 	// return the root with minium value
 	int getMin() { return arr[0]; }
 
-	// delete Key
-	void deleteKey(int i);
-
 	//adding new value
 	void insertKey(int val);
 
