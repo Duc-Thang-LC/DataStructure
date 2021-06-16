@@ -139,10 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicSegmentTree.cpp" />
     <ClCompile Include="BinaryHeap.cpp" />
+    <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="BTree.cpp" />
     <ClCompile Include="LazySegmentTreecpp.cpp" />
     <ClCompile Include="LRU.cpp" />
+    <ClCompile Include="RedBlackTree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
