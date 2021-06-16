@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BinaryHeap.cpp" />
+    <ClCompile Include="BTree.cpp" />
     <ClCompile Include="LazySegmentTreecpp.cpp" />
     <ClCompile Include="LRU.cpp" />
   </ItemGroup>
