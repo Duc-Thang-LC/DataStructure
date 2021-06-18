@@ -42,7 +42,7 @@ public:
 				if (val == key[i])return this;
 				else
 				{
-					if (leaf == 0)return child[i+1]->Find(val);
+					if (leaf == 0)return child[i + 1]->Find(val);
 					else return NULL;
 				}
 			}
@@ -83,7 +83,7 @@ public:
 				i++;
 			}
 
-			if(key[i] < val)child[i+1]->Insert(val, root);
+			if (key[i] < val)child[i + 1]->Insert(val, root);
 			else child[i]->Insert(val, root);
 		}
 
@@ -129,7 +129,7 @@ public:
 
 			//add middle member to fa
 			int j = 0;
-			while (j < fa->current_key  && fa->key[j] < val)j++;
+			while (j < fa->current_key && fa->key[j] < val)j++;
 			fa->current_key += 1;
 
 			for (int k = fa->current_key - 1; k >= j + 1; --k)
@@ -150,7 +150,7 @@ public:
 					child[k]->fa = fa->child[j + 1];
 					fa->child[j + 1]->child[dem] = child[k];
 				}
-				fa->child[j+1]->key[dem] = key[k];
+				fa->child[j + 1]->key[dem] = key[k];
 				dem++;
 			}
 			if (leaf == 0)
@@ -158,7 +158,7 @@ public:
 				child[current_key]->fa = fa->child[j + 1];
 				fa->child[j + 1]->child[dem] = child[current_key];
 			}
-			fa->child[j+1]->fa = fa;
+			fa->child[j + 1]->fa = fa;
 
 			//resize current key size
 			current_key = min_size - 1;
@@ -255,8 +255,11 @@ public:
 
 	Node* Successor(Node* x)
 	{
-		if (x->leaf == 1)return x;
-		else return x->child[x->current_key];
+		if (x->leaf == 1)
+		{
+			return x;
+		}
+		else return Successor(x->child[x->current_key]);
 	}
 
 	void Delete(int val)
@@ -271,7 +274,7 @@ public:
 		if (x->leaf == 0)
 		{
 			Case = 1;
-			
+
 			//Find successor node
 			int point = 0;
 			for (int i = 0; i < x->current_key; ++i)
@@ -347,8 +350,9 @@ void BTree::Merge(Node* x)
 			root = x->child[0];
 			return;
 		}
+		else return;
 	}
-	
+
 	Node* fax = x->fa;  // is father of x
 
 	//else 
@@ -364,9 +368,9 @@ void BTree::Merge(Node* x)
 		{
 			int left_child_key = fax->child[point - 1]->current_key;
 			Node* newnode = fax->child[point - 1]->child[left_child_key]; //new child of x
-			int newval = fax->child[point - 1]->key[left_child_key-1]; //new key of x
+			int newval = fax->child[point - 1]->key[left_child_key - 1]; //new key of x
 			fax->child[point - 1]->current_key -= 1; // delete key and child from left sibling
-			
+
 			//add new child and key to x
 			x->current_key += 1;
 			for (int i = x->current_key - 1; i >= 1; --i)
@@ -380,7 +384,7 @@ void BTree::Merge(Node* x)
 			}
 			x->key[0] = fax->key[point - 1];
 			x->child[0] = newnode;
-			if(!x->leaf)newnode->fa = x;
+			if (!x->leaf)newnode->fa = x;
 			fax->key[point - 1] = newval;
 
 			for (int i = 0; i <= x->current_key; ++i)if (!x->leaf)x->child[i]->fa = x;
@@ -453,8 +457,8 @@ void BTree::Merge(Node* x)
 		fax->current_key -= 1;
 
 		for (int i = 0; i <= fax->current_key; ++i)fax->child[i]->fa = fax;
-		for (int i = 0; i <= x->current_key; ++i)if(!x->leaf)x->child[i]->fa = x;
-		for (int i = 0; i <= fax->child[point - 1]->current_key; ++i)if(!fax->child[point-1]->leaf)fax->child[point - 1]->child[i]->fa = fax->child[point - 1];
+		//for (int i = 0; i <= x->current_key; ++i)if (!x->leaf)x->child[i]->fa = x;
+		for (int i = 0; i <= fax->child[point - 1]->current_key; ++i)if (!fax->child[point - 1]->leaf)fax->child[point - 1]->child[i]->fa = fax->child[point - 1];
 
 	}
 
@@ -490,57 +494,17 @@ void BTree::Merge(Node* x)
 
 		for (int i = 0; i <= fax->current_key; ++i)fax->child[i]->fa = fax;
 		for (int i = 0; i <= x->current_key; ++i)if (!x->leaf)x->child[i]->fa = x;
-		for (int i = 0; i <= fax->child[point + 1]->current_key; ++i)if (!fax->child[point + 1]->leaf)fax->child[point + 1]->child[i]->fa = fax->child[point + 1];
+		//for (int i = 0; i <= fax->child[point + 1]->current_key; ++i)if (!fax->child[point + 1]->leaf)fax->child[point + 1]->child[i]->fa = fax->child[point + 1];
 	}
 
 	//if num node of fax is enough => return
 	if (x->fa->current_key >= min_size - 1)return;
-    Merge(x->fa);	
+	Merge(x->fa);
 
 	return;
 }
 
 int main()
 {
-	BTree t(2); // A B-Tree with minium degree 2
-
-	t.Insert(5);
-	t.Insert(6);
-	t.Insert(9);
-	t.Insert(11);
-	t.Insert(7);
-	t.Insert(8);
-	t.Insert(12);
-	t.Insert(1);
-	t.Insert(4);
-	t.Insert(3);
-	t.Insert(2);
-	t.Insert(10);
-
-	cout << "Traversal of tree constructed is\n";
-	t.Print();
-	cout << endl;
-
-	t.Delete(12);
-	cout << "Traversal of tree after removing \n";
-	t.Print();
-	cout << endl;
-
-	t.Delete(4);
-	cout << "Traversal of tree after removing \n";
-	t.Print();
-	cout << endl;
-
-	t.Delete(5);
-	cout << "Traversal of tree after removing \n";
-	t.Print();
-	cout << endl;
-
-	t.Delete(2);
-	cout << "Traversal of tree after removing \n";
-	t.Print();
-	cout << endl;
-
-	return 0;
+	
 }
-
