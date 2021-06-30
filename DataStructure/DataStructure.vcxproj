@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="B+Tree.cpp" />
     <ClCompile Include="BasicSegmentTree.cpp" />
     <ClCompile Include="BinaryHeap.cpp" />
     <ClCompile Include="BinarySearchTree.cpp" />
