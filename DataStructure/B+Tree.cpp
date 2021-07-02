@@ -259,10 +259,10 @@ public:
 		}
 	}
 
-	int FindPrecessor()
+	int FindSuccessor()
 	{
 		if (leaf == 1)return key[0];
-		return child[0]->FindPrecessor();
+		return child[0]->FindSuccessor();
 	}
 
 	void DeleteDouble(int val)
@@ -273,7 +273,7 @@ public:
 		{
 			if (key[point] == val)
 			{
-				key[point] = child[point + 1]->FindPrecessor();
+				key[point] = child[point + 1]->FindSuccessor();
 				return;
 			}
 			if (key[point] > val)
