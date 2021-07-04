@@ -144,6 +144,7 @@
     <ClCompile Include="BinaryHeap.cpp" />
     <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="BTree.cpp" />
+    <ClCompile Include="KDTree.cpp" />
     <ClCompile Include="LazySegmentTreecpp.cpp" />
     <ClCompile Include="LRU.cpp" />
     <ClCompile Include="RedBlackTree.cpp" />
